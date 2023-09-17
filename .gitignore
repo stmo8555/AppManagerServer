@@ -1,0 +1,4 @@
+bin/
+obj/
+AppManagerServer.csproj.user
+data.txt
