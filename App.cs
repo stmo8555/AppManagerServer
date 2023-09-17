@@ -2,12 +2,14 @@
 
 public class App
 {
-    public string Name { get; private set; }
-    public  string Path { get; private set; }
+    public string Key { get; private set; }
+    public string trueName { get; private set; }
+    public  string ExePath { get; private set; }
 
-    public App(string name, string path)
+    public App(string key, string exePath)
     {
-        Name = name;
-        Path = path;
+        Key = key;
+        trueName = Path.GetFileNameWithoutExtension(exePath);
+        ExePath = exePath;
     }
 }

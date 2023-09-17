@@ -15,7 +15,7 @@ public class DataStore
     {
         foreach (var app in apps)
         {
-            _data.Add(app.Name,app);
+            _data.Add(app.Key,app);
         }
     }
 }

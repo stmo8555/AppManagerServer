@@ -15,8 +15,8 @@ namespace AppManagerServer.Models
                 var startInfo = new ProcessStartInfo
                 {
                     FileName = exePath,
-                    CreateNoWindow = false, // Show a new window
-                    UseShellExecute = true  // Use the system shell to execute the program
+                    CreateNoWindow = false,
+                    UseShellExecute = true
                 };
 
                 Process.Start(startInfo);
@@ -29,11 +29,13 @@ namespace AppManagerServer.Models
 
             return true;
         }
-        public bool Stop(string exePath)
+        public bool Stop(string trueName)
         {
             try
             {
-                var processList = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(exePath));
+                var processList = Process.GetProcessesByName(trueName);
+                if (processList.Length == 0)
+                    return false;
                 foreach (var process in processList)
                 {
                     process.Kill(true);
@@ -59,9 +61,8 @@ namespace AppManagerServer.Models
 
             foreach (var app in apps)
             {
-                var name = Path.GetFileNameWithoutExtension(app.Value.Path);
-                var processes = Process.GetProcessesByName(name);
-                status.Add(app.Value.Name, processes.Length > 0 ? "Started" : "Stopped");
+                var processes = Process.GetProcessesByName(app.Value.trueName);
+                status.Add(app.Key, processes.Length > 0 ? "Started" : "Stopped");
             }
 
             if (string.IsNullOrWhiteSpace(appName)) 
